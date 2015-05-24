@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	
+	<meta charset="utf-8">
+	<title> Cultura</title>
+   
+	<style type="text/css" >
+		
+        #formulario1 {
+            float: right;
+        }
+		body {
+			margin: 10px 20% 50px 70px;
+			font-family: sans-serif;
+			color: black;
+			background: {{BG}};
+		}
+        #image{
+            float: right;
+            }
+		#menu{
+		 background:#f9f9f9;
+		 border:solid 1px #DEDEDE;
+		 border-radius:3px;
+		 width:350px;
+		 padding:5px;
+		 }
+        #tabla{
+         font-size:0.8em;
+        }
+		menu{
+		 color:#06F;
+		 display:inline-block;
+		 margin:0px;
+		 background:linear-gradient(#fff 0%,#dedede 100%);
+		 background:-moz-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-ms-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-o-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-webkit-linear-gradient(#fff 0%,#dedede 100%);
+		 border:solid 1px #f9f9f9;
+		 border-radius:5px;
+		 width:100px;
+		 padding:5px;
+		 }
+		menu:hover{
+		 background:linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-moz-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-ms-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-o-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-webkit-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 border-radius:3px;
+		 border:solid 1px #333;
+		 color:red;
+		 } 
+ </style>
+	
+</head>
+<body>
+	    <img src="/images/silueta_padel.png" alt="" id="image">
+    
+	<div id="menu">
+		<menu><a href='/Cultura/'>INICIO</a></menu>
+		<menu><a href='/Cultura/todas'>TODAS</a></menu>
+		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
+	</div>
+    </br>
+	</br>
+  
+    <header>
+	    <h1> Cultura</h1>
+        {% if USUARIO = 'NO ESTAS REGISTRADO' %}
+		        <form action='/Cultura/login'  method = 'POST' role="form" id="login">
+			        <input  type="text"     class="form-control" placeholder="User"     name='username'>
+			        <input  type="password" class="form-control" placeholder="Password" name='password'>
+			        <button type="submit"   class="btn btn-default">Login</button>
+		        </form>
+	        
+	    {% endif %}
+        {% if USUARIO != 'NO ESTAS REGISTRADO' %}
+             <table border = "1" id="formulario1">
+                <tr>        
+                    <td>    
+                        <form action='/Cultura/logout' method = 'GET' id=logout>
+				            <button type='submit'     >LOGOUT</button>
+			            </form>
+                    </td>
+                </tr>
+			    <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST' >
+				            <input  type="text"  placeholder="titulo " name='titulo'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+			    </tr>
+                <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST'>
+				            <input  type="text"  placeholder="descripcion" name='descripcion'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+                </tr>
+                
+            </table>
+	    {% endif %}
+    </header>
+	</br>
+	</br>
+	</br>
+
+	<table border = "1" align = "center">
+		<tr bgcolor = '00FF99'>
+			<th scope="col" colspan='3'>PAGINAS PERSONALES</th>
+		</tr>
+		<tr bgcolor= '00FFCC'>
+			{% for usuarios in LISTA1 %}
+			<td><a href='/Cultura/{{usuarios }}'>{{ usuarios }}</td>
+			{% endfor %}
+		</tr>
+		<tr bgcolor= '00FFCC'>
+			{% for titulos in LISTA2 %}
+			<td>{{titulos}}</td>
+			{% endfor %}
+		</tr>
+		<tr bgcolor= '00FFCC'>
+			{% for descripciones in LISTA3 %}
+			<td>{{ descripciones }}</td>
+			{% endfor %}
+		</tr>		
+	</table>
+	
+	</br>
+	</br>
+	</br>
+	
+	<table border = "1" align = "center" id="tabla">
+		<tr bgcolor = 'cyan'>
+			<th scope="col" colspan={{TOPE}}>INCIDENCIAS DESTACADAS</th>
+		</tr>
+		<tr bgcolor= 'lime'>
+			<td>TIPO     </td>
+			<td>TITULO</td>
+			<td>GRATUITO</td>
+			<td>FECHA</td>
+			<td>HORA    </td>
+			<td>LARGA DURACION</td>
+			<td>URL       </td>
+            <td>DURACION    </td>
+			<td>Nº      </td>			
+		</tr>
+		{% for lista in FILA %}
+			<tr>{% for indi in lista %}
+                    {% if forloop.counter = 3 or forloop.counter = 6 %}
+                        {% if indi = 1 %}
+                            <td>si</td>
+                        {% else %}
+                            <td>no</td>     
+                        {% endif %}                  
+                    {% else %}                      
+				        <td>{{ indi }}</td>
+                    {% endif %}
+			{% endfor %}
+			
+			</tr>
+		{% endfor %}
+	</table>
+
+</body>	
+
+</html>

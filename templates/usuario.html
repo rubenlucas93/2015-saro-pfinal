@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+	<title> Cultura</title>
+
+
+	<style type="text/css" >
+		
+		#menu{
+		 background:#f9f9f9;
+		 border:solid 1px #DEDEDE;
+		 border-radius:3px;
+		 width:450px;
+		 padding:5px;
+		 }
+        #image{
+            float: right;
+        }
+		menu{
+		 color:#06F;
+		 display:inline-block;
+		 margin:0px;
+		 background:linear-gradient(#fff 0%,#dedede 100%);
+		 background:-moz-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-ms-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-o-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-webkit-linear-gradient(#fff 0%,#dedede 100%);
+		 border:solid 1px #f9f9f9;
+		 border-radius:5px;
+		 width:100px;
+		 padding:5px;
+		 }
+		menu:hover{
+		 background:linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-moz-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-ms-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-o-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-webkit-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 border-radius:3px;
+		 border:solid 1px #333;
+		 color:red;}
+        #tabladesc{
+        float: right;        
+        }
+        body{
+		 background:{{BG}};
+		
+         font-size:{{LETRA}};
+		 }
+        #tabla{
+         font-size:0.8em;
+        }
+        #formulario1{
+        float: left;
+        }
+        
+	</style>
+</head>
+<body>
+	<div id="menu">
+		<menu><a href='/Cultura/'>INICIO</a></menu>
+		<menu><a href='/Cultura/todas'>TODAS</a></menu>
+		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
+	</div>
+	<header>
+        <img src="/images/silueta_padel.png" alt="" id="image">
+		<h1>Cultura</h1>
+
+          	
+		{% if VALUE = 0%}
+			
+			
+            <table border = "1" id="formulario1">
+                <tr>        
+                    <td>    
+                        <form action='/Cultura/logout' method = 'GET' id=logout>
+				            <button type='submit'     >LOGOUT</button>
+			            </form>
+                    </td>
+                </tr>
+			    <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST' >
+				            <input  type="text"  placeholder="titulo " name='titulo'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+			    </tr>
+                <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST'>
+				            <input  type="text"  placeholder="descripcion" name='descripcion'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+                </tr>
+                
+            </table>
+			<br>
+		<table border = "1" id="tabladesc">
+				<tr>
+                <td>
+		            <h3><p align= 'center'>PÁGINA PERSONAL DE {{USUARIO}}</p></h3>
+		            <h2><p align = 'center' >TITULO: {{TITULO}}</p></h2>
+		            <h3><p align = 'center' >DESCRIPCION: {{DESCRIPCION}}</p></h3>
+                </td>                
+                </tr>
+        </table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+	<form action='/Cultura/{{USUARIO}}/RSS' method = 'GET' >
+		<button type='submit'>CANAL RSS</button>
+	</form>
+	<br>
+    <br>
+    <br>
+			<table border = "1" id="formulario1">
+				<tr>
+					<th scope="col" colspan=2>PARAMETROS CSS</th>
+				</tr>
+				<tr>
+					<td>
+						<form action='/Cultura/{{USUARIO}}'  method = 'POST' role="form" id="formulario">
+						<u>COLOR DE FONDO:</u> 
+							   <input type="checkbox" name=background value="green">verde
+							   <input type="checkbox" name=background value="red">rojo
+							   <input type="checkbox" name=background value="yellow">amarillo
+                               <input type="checkbox" name=background value="white">blanco
+					</td>
+					<td>
+						&nbsp; <button type="submit"     >GUARDAR</button></form>
+					</td>					   
+				</tr>								   
+				
+				<tr>
+					<td>					   
+					    <form action='/Cultura/{{USUARIO}}'  method = 'POST' role="form" id="formulario">
+							 <u>TAMAÑO LETRA:</u> 
+							 <input type="checkbox" name=letra value=2em>grande
+							
+							 <input type="checkbox" name=letra value=1em>pequeño
+					</td>
+					<td>
+						&nbsp; <button type="submit"     >GUARDAR</button></form>
+					</td>
+				</tr>
+			</table>
+			
+		{% endif %}
+			
+	</header>
+	
+
+	
+	<br>
+	<br>
+    <br>
+	<br>
+    <br>
+	<br>
+    
+    <form action='/Cultura/{{USUARIO}}'  method = 'POST' role="form" id="formulario">
+        <input type="hidden" name='menos' ></input>  
+		<button type="submit"     >ver 8 anteriores</button>
+	</form>
+    <br>
+	<table border = "1" align = "center" id="tabla">
+		<tr bgcolor = 'cyan'>
+			<th scope="col" colspan={{TOPE}}>INCIDENCIAS DESTACADAS</th>
+		</tr>
+		<tr bgcolor= 'lime'>
+			<td>TIPO     </td>
+			<td>TITULO</td>
+			<td>GRATUITO</td>
+			<td>FECHA   </td>
+			<td>LARGA DURACION      </td>
+            <td>ELEGIDA EN     </td>
+            <td>URL    </td>
+  
+		</tr>
+		{% for lista in FILA %}
+			<tr>{% for indi in lista %}
+			        {% if forloop.counter = 3 or forloop.counter = 5 %}
+                        {% if indi = 1 %}
+                            <td>si</td>
+                        {% else %}
+                            <td>no</td>     
+                        {% endif %}                  
+                    {% else %}                      
+				        <td>{{ indi }}</td>
+                    {% endif %}
+			{% endfor %}
+			
+			</tr>
+		{% endfor %}
+	</table>
+<br>
+<br>    
+    <form action='/Cultura/{{USUARIO}}'  method = 'POST' role="form" id="formulario">
+        <input type="hidden" name='mas' > </input>  
+		<button type="submit"     >ver 8 siguientes</button>
+	</form>
+
+</body>
+</html>

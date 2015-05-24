@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+
+  <title>RSS de {{USUARIO}} -- {{FECHA}}</title>
+  <link>/Cultura/{{USUARIO}}/RSS</link>
+  <description>Esta es la descripción del RSS</description>
+  {% for lista in FILA %} 
+  <name>actividad {{forloop.counter}}</name>
+    {% for indi in lista %}
+
+      {% if forloop.counter = 1 %}
+	    <item>
+          <title>tipo</title>
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 2 %}
+	    <item>
+          <title>titulo</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 3 %}
+	    <item>
+          <title>gratuito</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 4 %}
+	    <item>
+          <title>duracion</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 5 %}
+	    <item>
+          <title>fecha</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 6 %}
+	    <item>
+          <title>hora</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 7 %}
+	    <item>
+          <title>largaduracion</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 8 %}
+	    <item>
+          <title>Fecha de eleccion</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% if forloop.counter = 9 %}
+	    <item>
+          <title>URL<title>
+        
+          <description>{{indi}}</description>
+        </item>
+    {% endfor %} 
+  {% endfor %} 
+</rss>

@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>Cultura</title>
+		<style type="text/css" >
+			#menu{
+			 background:#f9f9f9;
+			 border:solid 1px #DEDEDE;
+			 border-radius:3px;
+			 width:350px;
+			 padding:5px;
+            }
+            #tabla{
+             font-size:0.8em;
+            }
+            #formulario1, #login{
+            float: right;
+            }
+            #image{
+            float: right;
+            }
+            body{
+             background:{{BG}}
+            }
+            #nombre{
+             font-weight: bold
+             float: right            
+            }
+			menu{
+			 color:#06F;
+			 display:inline-block;
+			 margin:0px;
+			 background:linear-gradient(#fff 0%,#dedede 100%);
+			 background:-moz-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-ms-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-o-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-webkit-linear-gradient(#fff 0%,#dedede 100%);
+			 border:solid 1px #f9f9f9;
+			 border-radius:5px;
+			 width:100px;
+			 padding:5px;
+			 }
+			menu:hover{
+			 background:linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-moz-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-ms-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-o-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-webkit-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 border-radius:3px;
+			 border:solid 1px #333;
+			 color:red;
+			 } 
+		</style>
+	
+	</head>
+
+        <h1> Cultura</h1>
+        {% if NOMBRE = 'NO ESTAS REGISTRADO' %}
+		        <form action='/Cultura/login'  method = 'POST' role="form" id="login">
+			        <input  type="text"     class="form-control" placeholder="User"     name='username'>
+			        <input  type="password" class="form-control" placeholder="Password" name='password'>
+			        <button type="submit"   class="btn btn-default">Login</button>
+		        </form>
+	        
+	    {% endif %}
+        {% if NOMBRE != 'NO ESTAS REGISTRADO' %}
+             <table border = "1" id="formulario1">
+                <tr>        
+                    <td>    
+                        <form action='/Cultura/logout' method = 'GET' id=logout>
+				            <button type='submit'     >LOGOUT</button>
+			            </form>
+                    </td>
+                    <td>    
+                        <a href='/Cultura/{{USUARIO}}'>{{USUARIO}}</a>
+                    </td>
+                </tr>
+			    <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST' >
+				            <input  type="text"  placeholder="titulo " name='titulo'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+			    </tr>
+                <tr>
+                    <td>
+			            <form action='/Cultura/{{USUARIO}}'  method = 'POST'>
+				            <input  type="text"  placeholder="descripcion" name='descripcion'>
+				            <button type="submit"     >GUARDAR</button>
+			            </form>
+                    </td>
+                </tr>
+                
+            </table>
+	    {% endif %}
+    
+    <img src="/images/silueta_padel.png" alt="" id="image">
+	<body>
+		<div id="menu">
+		<menu><a href='/Cultura/'>INICIO</a></menu>
+		<menu><a href='/Cultura/todas'>TODAS</a></menu>
+		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
+		</div>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="tipo" name='tipo'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="titulo" name='titulo'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="fecha" name='fecha'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="hora" name='hora'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="largaduracion" name='largaduracion'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+		<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+			<input  type="text"  placeholder="gratuito" name='gratuito'>
+			<button type="submit"     >FILTRAR</button>
+		</form>
+
+		</br>
+		</br>
+        
+        <p><u>ULTIMA HORA DE ACTUALIZACION:</u> {{HORA}}</p>
+
+		</br>
+        {% if NOMBRE != 'NO ESTAS REGISTRADO' %}
+	        <form action='/Cultura/todas' method = 'POST'>
+			    <input type="hidden" name='actualizar' value={{ indi }}> </input>
+			    <button type='submit'     >ACTUALIZAR</button>
+		    </form>
+        {% endif %}
+
+		<table border = "1" align = "center" id="tabla">
+			<tr bgcolor = 'cyan'>
+				<th scope="col" colspan={{TOPE}}>INCIDENCIAS DESTACADAS</th>
+			</tr>
+			<tr bgcolor= 'lime'>
+				<td>TIPO     </td>
+				<td>titulo</td>
+				<td>gratuito</td>
+				<td>fecha</td>
+				<td>hora    </td>
+				<td>largaduracion</td>
+				<td>URL       </td>
+                <td>DURACION       </td>
+                <td>Nº     </td>
+		</tr>
+			{% for lista in FILA %}
+			    {% if forloop.last %}
+				    HAY {{forloop.counter}} INCIDENCIAS DESPONIBLES EN EL CANAL
+			    {% endif %}
+				<tr>{% for indi in lista %}
+                    {% if forloop.counter = 3 or forloop.counter = 6 %}
+                        {% if indi = 1 %}
+                            <td>si</td>
+                        {% else %}
+                            <td>no</td>     
+                        {% endif %}                  
+                    {% else %}                      
+				        <td>{{ indi }}</td>
+                    {% endif %}
+					{% if forloop.counter = 9 %}
+						<td bgcolor="green">
+							<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+								<input type="hidden" name='seguir' value={{ indi }}> </input>  
+								<button type="submit"     >SEGUIR</button>
+							</form>
+						</td>
+                        <td bgcolor="blue">
+                            <form action='/Cultura/actividad/{{ indi }}'  method = 'GET'>
+                                <button type="submit"     >VER</button>
+                            </form>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+				
+                </tr>
+            {% endfor %}
+            </table>
+    </body>
+</html>
+
+
+

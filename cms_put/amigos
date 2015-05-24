@@ -1,0 +1,38 @@
+esto va justo antes de	########################################################################################################################
+	#MOSTRAR PAGINAS PERSONALES	
+:
+    #SEGUIR AMIGOS
+	#if request.method == 'POST':
+	#	
+	#	diccionario = request.POST
+	#	lista       = list(diccionario.keys())
+	#		
+	#	name  = str(lista[0])
+	#	valor = request.POST[name]
+	#	
+	#	print 'name:  ' + name
+	#	print 'valor: ' + valor
+	#	
+	#	alSeguido = Usuarios.objects.get(id = int(valor))
+	#	NombreSeguido = alSeguido.usuario
+	#	print 'VOY A SEGUIR A: ' +  NombreSeguido
+	#	TablaUser = User.objects.get(username = NombreSeguido)
+	#	
+	#	 
+	#	print 'YO SOY: ' + nombre
+	#	usuario = Usuarios.objects.get(usuario = nombre)
+	#	usuario.amigos.add(TablaUser)
+	#	usuario.save()
+
+y justo despues del ultimo except OperationalError:
+
+#amigo  = usuario.amigos.all()
+
+    #AMIGOS = []
+
+    #for loop in amigo:
+    #	AMIGOS.append(loop.username)
+
+y en el penultimo def del views, al final, donde renderiza el template:
+
+                                    #'AMIGOS'      : AMIGOS}))

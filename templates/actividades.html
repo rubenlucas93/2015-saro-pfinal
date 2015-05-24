@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>Cultura</title>
+		<style type="text/css" >
+			#menu{
+			 background:#f9f9f9;
+			 border:solid 1px #DEDEDE;
+			 border-radius:3px;
+			 width:350px;
+			 padding:5px;
+			 }
+            #image{
+            float: right;
+            }
+			menu{
+			 color:#06F;
+			 display:inline-block;
+			 margin:0px;
+			 background:linear-gradient(#fff 0%,#dedede 100%);
+			 background:-moz-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-ms-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-o-linear-gradient(#fff 0%,#dedede 100%);
+			 background:-webkit-linear-gradient(#fff 0%,#dedede 100%);
+			 border:solid 1px #f9f9f9;
+			 border-radius:5px;
+			 width:100px;
+			 padding:5px;
+			 }
+			menu:hover{
+			 background:linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-moz-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-ms-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-o-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 background:-webkit-linear-gradient(#DEDEDE 0%, #FFF 100%);
+			 border-radius:3px;
+			 border:solid 1px #333;
+			 color:red;
+			 } 
+        body{
+            background:{{BG}};
+        }
+		</style>
+	
+	</head>
+	    <img src="/images/silueta_padel.png" alt="" id="image">
+	<body>
+		<div id="menu">
+		<menu><a href='/Cultura/'>INICIO</a></menu>
+		<menu><a href='/Cultura/todas'>TODAS</a></menu>
+		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
+		</div>
+		
+		</br>
+		</br>
+		</br>
+		<p><u>ULTIMA HORA DE ACTUALIZACION: </u> {{HORA}}</p>
+        
+        {{ INFO }}	
+        
+		<form action='/Cultura/actividad/{{id}}' method = 'POST'>
+			<input  type="hidden" name='actualizar'> </input> 
+			<button type='submit'     >ACTUALIZAR</button>
+		</form>
+		
+		<table border = "1" align = "center">
+			<tr bgcolor = 'cyan'>
+				<th scope="col" colspan={{TOPE}}>ACTIVIDAD SELECCIONADA</th>
+			</tr>
+			<tr bgcolor= 'lime'>
+				<td>TIPO     </td>
+				<td>titulo</td>
+				<td>gratuito</td>
+				<td>fecha</td>
+				<td>hora    </td>
+				<td>largaduracion</td>
+				<td>URL     </td>
+				<td>duracion     </td>
+				<td>descripción     </td>
+			</tr>
+			
+            <tr>{% for indi in FILA %}
+                   
+                    {% if forloop.counter = 3 or forloop.counter = 6 %}
+                        {% if indi = 1 %}
+                            <td>si</td>
+                        {% else %}
+                            <td>no</td>     
+                        {% endif %}                  
+                    {% else %}                      
+				        <td>{{ indi }}</td>
+                    {% endif %}
+			
+		
+		
+		    {% endfor %}
+    		</tr>
+	        	
+    	</table>
+	</body>
+</html>
+
+
+

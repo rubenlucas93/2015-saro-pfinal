@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	
+	<meta charset="utf-8">
+	<title> Cultura</title>
+
+	<style type="text/css" >
+		#image{
+            float: right;
+            }
+       
+		body {
+			margin: 10px 20% 50px 70px;
+			font-family: sans-serif;
+			color: black;
+			background: white;
+		}
+		#menu{
+		 background:#f9f9f9;
+		 border:solid 1px #DEDEDE;
+		 border-radius:3px;
+		 width:350px;
+		 padding:5px;
+		 }
+		menu{
+		 color:#06F;
+		 display:inline-block;
+		 margin:0px;
+		 background:linear-gradient(#fff 0%,#dedede 100%);
+		 background:-moz-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-ms-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-o-linear-gradient(#fff 0%,#dedede 100%);
+		 background:-webkit-linear-gradient(#fff 0%,#dedede 100%);
+		 border:solid 1px #f9f9f9;
+		 border-radius:5px;
+		 width:100px;
+		 padding:5px;
+		 }
+		menu:hover{
+		 background:linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-moz-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-ms-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-o-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 background:-webkit-linear-gradient(#DEDEDE 0%, #FFF 100%);
+		 border-radius:3px;
+		 border:solid 1px #333;
+		 color:red;
+		 } 
+ </style>
+	
+</head>
+<body>
+	
+    
+	<div id="menu">
+		<menu><a href='/Cultura/'>INICIO</a></menu>
+		<menu><a href='/Cultura/todas'>TODAS</a></menu>
+		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
+	</div>
+	<header>
+	    <h1> Cultura</h1>
+        {% if NOMBRE = 'NO ESTAS REGISTRADO' %}
+		        <form action='/Cultura/login'  method = 'POST' role="form" id="login">
+			        <input  type="text"     class="form-control" placeholder="User"     name='username'>
+			        <input  type="password" class="form-control" placeholder="Password" name='password'>
+			        <button type="submit"   class="btn btn-default">Login</button>
+		        </form>
+	        
+	    {% endif %}
+        {% if NOMBRE != 'NO ESTAS REGISTRADO' %}
+             <form action='/Cultura/logout' method = 'GET' id="logout">
+	            <button type='submit'     >LOGOUT</button>
+            </form>
+	    {% endif %}
+    </header>
+	    <img src="/images/silueta_padel.png" alt="" id="image">
+	
+	</br>
+	</br>
+	</br>
+    <h2>la practica consta de:</h2>
+    <div>
+	    <ul>
+		    <li >varios recursos que te permitiran seleccionar las actividades que mas te gusten de la comunidad de madrid:
+                <ul>  
+                    <li >/Cultura/todas</li>
+                    <li > /Cultura/(tu nombre de usuario)         </li>
+                    <li> /Cultura/(tu nombre de usuario)/RSS</li>
+                    <li> etc.</li>
+                </ul>
+            </li>
+		    <li> una pagina de ayuda para que puedas ver las facilidades que se te ofrecen</li>
+		    <li>la posibilidad de ver todas las actividades y sus características utilizando el recurso /Cultura/actividad/(id de la actividad que quieres ver) o a traves de nuestra pagina /Cultura/todas en la que estan todas las actividades disponibles</li>
+		    <li> una pagina principal en la que podras ver las 10 actividades mas proximas para que nada te pille de sorpresa, /Cultura/</li>
+	    </ul>
+    </div>
+</body>	
+
+</html>
