@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS =('/home/robotica/Desktop/practica_final/templates',)
+TEMPLATE_DIRS =('/home/robotica/Desktop/2015-saro-pfinal/templates',)
 
 # Application definition
 
