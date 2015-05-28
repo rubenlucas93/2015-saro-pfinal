@@ -12,6 +12,9 @@
             #image{
             float: right;
             }
+            #login, #logout{
+            float: right;
+            }
 			menu{
 			 color:#06F;
 			 display:inline-block;
@@ -37,6 +40,7 @@
 			 color:red;
 			 } 
         body{
+        
             background:{{BG}};
         }
 		</style>
@@ -49,7 +53,25 @@
 		<menu><a href='/Cultura/todas'>TODAS</a></menu>
 		<menu><a href='/Cultura/ayuda'>AYUDA</a></menu>
 		</div>
-		
+		{% if NOMBRE = '' %}
+		        <form action='/Cultura/login'  method = 'POST' role="form" id="login">
+			        <input  type="text"     class="form-control" placeholder="User"     name='username'>
+			        <input  type="password" class="form-control" placeholder="Password" name='password'>
+			        <button type="submit"   class="btn btn-default">Login</button>
+		        </form>
+	        
+	    {% endif %}
+        {% if NOMBRE != '' %}
+             <table border = "1" id="logout">
+                <tr>        
+                    <td>    
+                        <form action='/Cultura/logout' method = 'GET' id=logout>
+				            <button type='submit'     >LOGOUT</button>
+			            </form>
+                    </td>
+                </tr>    
+             </table>
+	    {% endif %}
 		</br>
 		</br>
 		</br>
@@ -63,9 +85,12 @@
 		</form>
 		
 		<table border = "1" align = "center">
+            
 			<tr bgcolor = 'cyan'>
 				<th scope="col" colspan={{TOPE}}>ACTIVIDAD SELECCIONADA</th>
+                <th scope="row" rowspan=2>si ha asistido al evento, comente</th>
 			</tr>
+               
 			<tr bgcolor= 'lime'>
 				<td>TIPO     </td>
 				<td>titulo</td>
@@ -75,8 +100,13 @@
 				<td>largaduracion</td>
 				<td>URL     </td>
 				<td>duracion     </td>
-				<td>descripción     </td>
+				<td>numero     </td>
+                <td>votacion     </td>
+
+				
+                
 			</tr>
+
 			
             <tr>{% for indi in FILA %}
                    
@@ -89,12 +119,46 @@
                     {% else %}                      
 				        <td>{{ indi }}</td>
                     {% endif %}
-			
-		
-		
+
+		            {% if forloop.counter = 9 %}
+                    <td>{{VOTACION}}</td>        
+                    {% if NOMBRE != '' %}            
+		                <td>
+			                <form action='/Cultura/actividad/{{id}}'  method = 'POST' >
+				                <input  type="text"  placeholder="comentario" name='comentario'>
+				                <button type="submit"     >GUARDAR</button>
+			                </form>
+                        </td>
+                        <td bgcolor="green">
+							        <form action='/Cultura/actividad/{{id}}'  method = 'POST' role="form" id="formulario">
+								        <input type="hidden" name='seguir' value={{ indi }}> </input>  
+								        <button type="submit"     >SEGUIR</button>
+							        </form>
+						        </td>
+                    {% endif %}
+                    {% endif %}
+
+
 		    {% endfor %}
+
+            </table>
+        <table border = "1" align = "center">
+			<tr bgcolor = 'cyan'>
+				<th scope="col" colspan=2>COMENTARIOS</th>
+			</tr>
+			<tr bgcolor= 'lime'>
+				<td>usuario     </td>
+				<td>comentario     </td>
+			</tr>
+			
     		</tr>
-	        	
+            <tr>{% for indic in comentarios %}
+                {% for indi in indic %}
+	        	<td>{{ indi }}</td>
+                {% endfor %}
+            
+            </tr>
+            {% endfor %}
     	</table>
 	</body>
 </html>

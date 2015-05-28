@@ -54,7 +54,7 @@
 	</head>
 
         <h1> Cultura</h1>
-        {% if NOMBRE = 'NO ESTAS REGISTRADO' %}
+        {% if USUARIO = '' %}
 		        <form action='/Cultura/login'  method = 'POST' role="form" id="login">
 			        <input  type="text"     class="form-control" placeholder="User"     name='username'>
 			        <input  type="password" class="form-control" placeholder="Password" name='password'>
@@ -62,7 +62,7 @@
 		        </form>
 	        
 	    {% endif %}
-        {% if NOMBRE != 'NO ESTAS REGISTRADO' %}
+        {% if USUARIO != '' %}
              <table border = "1" id="formulario1">
                 <tr>        
                     <td>    
@@ -70,7 +70,6 @@
 				            <button type='submit'     >LOGOUT</button>
 			            </form>
                     </td>
-                    <td>    
                         <a href='/Cultura/{{USUARIO}}'>{{USUARIO}}</a>
                     </td>
                 </tr>
@@ -132,7 +131,7 @@
         <p><u>ULTIMA HORA DE ACTUALIZACION:</u> {{HORA}}</p>
 
 		</br>
-        {% if NOMBRE != 'NO ESTAS REGISTRADO' %}
+        {% if NOMBRE != '' %}
 	        <form action='/Cultura/todas' method = 'POST'>
 			    <input type="hidden" name='actualizar' value={{ indi }}> </input>
 			    <button type='submit'     >ACTUALIZAR</button>
@@ -142,6 +141,9 @@
 		<table border = "1" align = "center" id="tabla">
 			<tr bgcolor = 'cyan'>
 				<th scope="col" colspan={{TOPE}}>INCIDENCIAS DESTACADAS</th>
+        {% if NOMBRE != '' %}
+                <th scope="row" rowspan=2 scope="col" colspan=3>no puede votar una actividad que no ha seguido previamente</th>
+        {% endif %}
 			</tr>
 			<tr bgcolor= 'lime'>
 				<td>TIPO     </td>
@@ -152,6 +154,7 @@
 				<td>largaduracion</td>
 				<td>URL       </td>
                 <td>DURACION       </td>
+                <td>VOTACION     </td>
                 <td>Nº     </td>
 		</tr>
 			{% for lista in FILA %}
@@ -168,18 +171,26 @@
                     {% else %}                      
 				        <td>{{ indi }}</td>
                     {% endif %}
-					{% if forloop.counter = 9 %}
-						<td bgcolor="green">
-							<form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
-								<input type="hidden" name='seguir' value={{ indi }}> </input>  
-								<button type="submit"     >SEGUIR</button>
-							</form>
-						</td>
-                        <td bgcolor="blue">
-                            <form action='/Cultura/actividad/{{ indi }}'  method = 'GET'>
-                                <button type="submit"     >VER</button>
-                            </form>
-                        </td>
+					{% if forloop.counter = 10 %}
+                        {% if USUARIO != '' %}
+						    <td bgcolor="green">
+							    <form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+								    <input type="hidden" name='seguir' value={{ indi }}> </input>  
+								    <button type="submit"     >SEGUIR</button>
+							    </form>
+						    </td>
+                            <td bgcolor="blue">
+                                <form action='/Cultura/actividad/{{ indi }}'  method = 'GET'>
+                                    <button type="submit"     >VER</button>
+                                </form>
+                            </td>
+                            <td bgcolor="orange">
+							    <form action='/Cultura/todas'  method = 'POST' role="form" id="formulario">
+								    <input type="hidden" name='votar' value={{ indi }}> </input>  
+								    <button type="submit"     >VOTAR</button>
+							    </form>
+						    </td>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
 				

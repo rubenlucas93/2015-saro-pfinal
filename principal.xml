@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+
+  <title>RSS de pagina principal -- {{FECHA}}</title>
+  <link>/Cultura/RSS</link>
+  <description>aqui se pueden ver las actividades mas proximas y los usuarios registrados</description>
+  {% for lista in lista10 %} 
+    
+     <item>
+        <title> ACTIVIDAD {{forloop.counter}} MAS PROXIMA</title>
+     </item>
+    {% for indi in lista %}
+      
+      {% if forloop.counter = 1 %}
+	    <item>
+          <title>tipo</title>
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 2 %}
+	    <item>
+          <title>titulo</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 3 %}
+	    <item>
+          <title>gratuito</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 4 %}
+	    <item>
+          <title>fecha</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 5 %}
+	    <item>
+          <title>hora</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 6 %}
+	    <item>
+          <title>largaduracion</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 7 %}
+	    <item>
+          <title>URL</title>
+        
+          <description>{{indi}}</description>
+        </item>
+      {% elif forloop.counter = 8 %}
+	    <item>
+          <title>Fecha de eleccion</title>
+        
+          <description>{{indi}}</description>
+        </item>
+
+      {% endif %}
+    {% endfor %}
+      
+  {% endfor %} 
+  {% for lista in FILA %} 
+    
+     <item>
+        <title> USUARIOS REGISTRADOS </title>
+     </item>
+     
+    {% for indi in lista %}
+        
+       {% if forloop.counter = 1 %}
+	    <item>
+            
+          <link href="/Cultura/{{indi}}" />
+          <author>{{indi}}</author>
+	    
+          <title>{{indi}}</title>
+        
+
+        
+      {% elif forloop.counter = 2 %}
+	   
+        
+          <description>{{indi}}</description>
+          
+        </item>
+      {% endif %}
+   {% endfor %} 
+{% endfor %} 
+</channel>
+</rss>

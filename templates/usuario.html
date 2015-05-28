@@ -44,6 +44,7 @@
         float: right;        
         }
         body{
+
 		 background:{{BG}};
 		
          font-size:{{LETRA}};
@@ -176,17 +177,20 @@
 		</tr>
 		<tr bgcolor= 'lime'>
 			<td>TIPO     </td>
-			<td>TITULO</td>
-			<td>GRATUITO</td>
-			<td>FECHA   </td>
-			<td>LARGA DURACION      </td>
-            <td>ELEGIDA EN     </td>
-            <td>URL    </td>
-  
+			<td>titulo</td>
+			<td>gratuito</td>
+			<td>fecha</td>
+			<td>hora    </td>
+			<td>largaduracion</td>
+            <td>elegida en </td>
+			<td>URL       </td>
+            <td>DURACION       </td>
+            <td>VOTACION</td>
+            <td>Nº     </td>
 		</tr>
 		{% for lista in FILA %}
 			<tr>{% for indi in lista %}
-			        {% if forloop.counter = 3 or forloop.counter = 5 %}
+			        {% if forloop.counter = 3 or forloop.counter = 7 %}
                         {% if indi = 1 %}
                             <td>si</td>
                         {% else %}
@@ -194,6 +198,22 @@
                         {% endif %}                  
                     {% else %}                      
 				        <td>{{ indi }}</td>
+                    {% endif %}
+                    {% if forloop.counter = 11 %}
+                        {% if VALUE = 0%}
+                        </td>
+                            <td bgcolor="orange">
+							    <form action='/Cultura/{{USUARIO}}'  method = 'POST' role="form" id="formulario">
+								    <input type="hidden" name='votar' value={{ indi }}> </input>  
+								    <button type="submit"     >VOTAR</button>
+							    </form>
+						    </td>
+                        <td bgcolor="blue">
+                                <form action='/Cultura/actividad/{{ indi }}'  method = 'GET'>
+                                    <button type="submit"     >VER</button>
+                                </form>
+                            </td>
+                        {% endif %}
                     {% endif %}
 			{% endfor %}
 			

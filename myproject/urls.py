@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^Cultura/(.+)/RSS$'      , 'cms_put.views.canalRSS'),
 	url(r'^Cultura/actividad/(\d+)'   , 'cms_put.views.actividad'),
 	url(r'^Cultura/ayuda'   , 'cms_put.views.ayuda'),
+    url(r'^Cultura/RSS$'   , 'cms_put.views.RSSprinc'),
     url(r'^images/(?P<path>.*)$'  , 'django.views.static.serve', {'document_root': settings.STATIC_URL,}),
     url(r'^Cultura/(.+)'          , 'cms_put.views.usuario'),
 )

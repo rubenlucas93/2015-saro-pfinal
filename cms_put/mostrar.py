@@ -23,6 +23,7 @@ def guardaractividades(page, DB):
     lista = []
     LISTA = []
     contador = 1
+    votacion=0
 
     actividades=soup.find_all("atributos")	
 
@@ -63,6 +64,10 @@ def guardaractividades(page, DB):
                 largaduracion=int( tag.contents[0])
             if tag["nombre"]=="CONTENT-URL":
                 URL=str( tag.contents[0])
+        votaciones=Actividad.objects.filter(titulo=titulo, fecha=fecha)
+        for objeto in votaciones:
+            
+            votacion = votacion + objeto.votacion
 
 
 
@@ -73,11 +78,12 @@ def guardaractividades(page, DB):
         lista.append(hora)
         lista.append(largaduracion)
         lista.append(URL)
+        lista.append(votacion)
         lista.append(duracion)
 
         lista.append(contador)
 
-        database(tipo=tipo, titulo=titulo, gratuito=gratuito, fecha=str(fecha), hora=str(hora), largaduracion=largaduracion, URL=URL, duracion=str(duracion), numero=contador).save()
+        database(tipo=tipo, titulo=titulo, gratuito=gratuito, fecha=str(fecha), hora=str(hora), largaduracion=largaduracion, URL=URL, duracion=str(duracion), votacion=votacion, numero=contador).save()
         contador = contador + 1
 
         LISTA.append(lista)
@@ -186,22 +192,33 @@ def mostrarlista(DB):
 	
     LISTA = []
     lista = []
-    if DB != '':
-        for objeto in DB:
-            lista.append(objeto.tipo)
-            lista.append(objeto.titulo)
-            lista.append(objeto.gratuito)
-            if objeto.duracion!=None:            
-                lista.append(objeto.duracion)
-            lista.append(objeto.fecha)
-            if objeto.hora!=None:
-                lista.append(objeto.hora)
-            lista.append(objeto.largaduracion)
-            lista.append(objeto.FechaEleccion)
-            lista.append(objeto.URL)
 
-            LISTA.append(lista)
-            lista = []
+    if DB != '':
+        try:
+            for objeto in DB:
+                    print 'cacahuete'
+                    lista.append(objeto.tipo)
+                    lista.append(objeto.titulo)
+                    lista.append(objeto.gratuito)
+                    lista.append(objeto.duracion)
+                    lista.append(objeto.fecha)
+                    lista.append(objeto.hora)
+                    lista.append(objeto.largaduracion)
+                    try:
+                        lista.append(objeto.FechaEleccion)
+                    except AttributeError:
+                        pass
+                    lista.append(objeto.URL)
+                    lista.append(objeto.votacion)
+                    lista.append(objeto.numero)
+
+                    LISTA.append(lista)
+                    print lista
+                    lista = []
+        except OperationalError:
+            pass
+    print len(LISTA)
+            
     return LISTA
 	
 
@@ -229,7 +246,7 @@ def sacaractividad(iteracion):
         LISTA.append(lista)
         lista=[]
         
-    actividadout = LISTA[int(iteracion)]
+    actividadout = LISTA[int(iteracion)-1]
             
     print actividadout[4]
     print str(actividadout[4])
